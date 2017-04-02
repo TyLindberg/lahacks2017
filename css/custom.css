@@ -1,6 +1,6 @@
-body {
+/*body {
 	overflow: hidden;
-}
+}*/
 
 /*textarea {
 	background: transparent;
@@ -31,11 +31,15 @@ body {
 	text-align: center;
 }
 
-.bar rect {
-  fill: red;
+.main-svg {
+	background: rgba(255, 255, 255, 0.5);
 }
 
-.bar text {
-  fill: #fff;
-  font: 10px sans-serif;
+.gl-canvas {
+	position: fixed;
+	z-index: 1;
+}
+
+.header-content-inner {
+	z-index: 100;
 }
