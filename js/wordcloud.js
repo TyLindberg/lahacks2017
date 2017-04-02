@@ -53,10 +53,10 @@
 
 	    //Construct the word cloud's SVG element
 	    var svg = d3.select(selector).append("svg")
-	        .attr("width", 500)
+	        .attr("width", Math.min(window.innerWidth - 20, 500))
 	        .attr("height", 500)
 	        .append("g")
-	        .attr("transform", "translate(250,250)");
+	        .attr("transform", "translate(" + parseInt(Math.min(window.innerWidth - 40, 500)) / 2 + ",250)");
 
 
 	    //Draw the word cloud
@@ -102,7 +102,7 @@
 	        //The outside world will need to call this function, so make it part
 	        // of the wordCloud return value.
 	        update: function(words) {
-	            d3.layout.cloud().size([500, 500])
+	            d3.layout.cloud().size([Math.min(window.innerWidth - 20, 500), 500])
 	                .words(words)
 	                .padding(5)
 	                .rotate(function() { return (Math.random() * 3.0) * 45.0; })

@@ -57,7 +57,7 @@
             camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 3000 );
             camera.position.z = 1000;
             scene = new THREE.Scene();
-            scene.fog = new THREE.FogExp2( 0x000000, 0.0007 );
+            // scene.fog = new THREE.FogExp2( 0x000000, 0.0007 );
             geometry = new THREE.Geometry();
             for ( i = 0; i < 2000; i ++ ) {
                 var vertex = new THREE.Vector3();
@@ -67,11 +67,11 @@
                 geometry.vertices.push( vertex );
             }
             parameters = [
-                [ [1, 1, 0.5], 5 ],
-                [ [0.95, 1, 0.5], 4 ],
-                [ [0.90, 1, 0.5], 3 ],
-                [ [0.85, 1, 0.5], 2 ],
-                [ [0.80, 1, 0.5], 1 ]
+                [ [0, 0, 0], 5 ],
+                [ [0, 0, 0], 4 ],
+                [ [0, 0, 0], 3 ],
+                [ [0, 0, 0], 2 ],
+                [ [0, 0, 0], 1 ]
             ];
             for ( i = 0; i < parameters.length; i ++ ) {
                 color = parameters[i][0];
@@ -125,7 +125,7 @@
             render();
         }
         function render() {
-            var time = Date.now() * 0.0000005;
+            var time = Date.now() * 0.000005;
             camera.position.x += ( mouseX - camera.position.x ) * 0.001;
             camera.position.y += ( - mouseY - camera.position.y ) * 0.001;
             camera.lookAt( scene.position );
@@ -135,11 +135,11 @@
                     object.rotation.y = time * ( i < 4 ? i + 1 : - ( i + 1 ) );
                 }
             }
-            // for ( i = 0; i < materials.length; i ++ ) {
-            //     color = parameters[i][0];
-            //     h = ( 360 * ( color[0] + time ) % 360 ) / 360;
-            //     materials[i].color.setHSL( h, color[1], color[2] );
-            // }
+            for ( i = 0; i < materials.length; i ++ ) {
+                color = parameters[i][0];
+                h = ( 360 * ( color[0] + time ) % 360 ) / 360;
+                materials[i].color.setHSL( 0.5444, 0.76, 0.35 );
+            }
             renderer.render( scene, camera );
         }
 
@@ -382,13 +382,10 @@
                         <a class="page-scroll" href="#page-top">Home</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#search">Search</a>
+                        <a class="page-scroll" href="#search">Sentiment</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#aboutheader">About</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#contactheader">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -439,11 +436,15 @@
                 <div class="col-sm-5">
                     <div class="header-content">
                         <div class="header-content-inner">
-                            <h1>Search a Word</h1>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="search-input">
+                            <div id="sentiment">
+                                <h1>Sentiment</h1>
+                                <div class="dropdown show">
+                                    <a href="#" id="search-button" class="btn btn-outline btn-xl page-scroll dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Friends</a>
+                                    <div id="friend-dropdown" class="dropdown-menu" aria-labelledby="search-button">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                    </div>
+                                </div>
                             </div>
-                            <a href="#" id="search-button" class="btn btn-outline btn-xl page-scroll">Search</a>
                         </div>
                     </div>
                 </div>
@@ -463,44 +464,6 @@
     <header id="aboutheader">
 
     </header>
-
-    <header id="contactheader">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="header-content">
-                        <div class="header-content-inner">
-                            <h1>Emails</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="header-content">
-                        <div class="header-content-inner">
-                            <h1>Github</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2016 Start Bootstrap. All Rights Reserved.</p>
-            <ul class="list-inline">
-                <li>
-                    <a href="#">Privacy</a>
-                </li>
-                <li>
-                    <a href="#">Terms</a>
-                </li>
-                <li>
-                    <a href="#">FAQ</a>
-                </li>
-            </ul>
-        </div>
-    </footer>
 
 
 
@@ -522,7 +485,7 @@
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
     <!-- Theme JavaScript -->
-    <script src="js/new-age.min.js"></script>
+    <script src="js/new-age.js"></script>
 
     <script type="text/javascript" src="js/people.js"></script>
 
