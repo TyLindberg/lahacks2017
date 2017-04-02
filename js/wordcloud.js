@@ -65,8 +65,12 @@
 	index = 0;
 
 	function updatewords() {
-		layout.words = wordset[index];
+		layout.words(wordset[index]);
+		layout.fontSize(fontsizeset[index]);
+		$("#wordcloud-name").val(nameset[index]);
 		index = (index + 1) % numpeople;
+
+		layout.start();
 	}
 
 	setInterval(updatewords(), 3000);

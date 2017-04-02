@@ -2,6 +2,11 @@ body {
 	overflow: hidden;
 }
 
+/*textarea {
+	background: transparent;
+	color: white;
+}*/
+
 #submit-message-container {
 	text-align: center;
 }
@@ -20,6 +25,10 @@ body {
 	  background: url("../img/bg-pattern.png"), -webkit-linear-gradient(to bottom, #155799, #136a8a);
 	  /* Chrome 10-25, Safari 5.1-6 */
 	  background: url("../img/bg-pattern.png"), linear-gradient(to bottom, #155799, #136a8a);
+}
+
+#wordcloud-container {
+	text-align: center;
 }
 
 .bar rect {
