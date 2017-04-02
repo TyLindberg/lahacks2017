@@ -403,7 +403,7 @@
                             <div id="wordcloud-container">
                                 <div id="wordcloud">
                                 </div>
-                                <h2 id="wordcloud-name">Name</h2>
+                                <h2 id="wordcloud-name"></h2>
                             </div>
                             <!-- <div id="wordcloud-carousel">
                             </div> -->
@@ -439,12 +439,11 @@
                         <div class="header-content-inner">
                             <div id="sentiment">
                                 <h1>Sentiment</h1>
-                                <div class="dropdown show">
-                                    <a href="#" id="search-button" class="btn btn-outline btn-xl page-scroll dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Friends</a>
-                                    <div id="friend-dropdown" class="dropdown-menu" aria-labelledby="search-button">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                    </div>
+                                <div class="form-group">
+                                  <label for="friend-entry">Name:</label>
+                                  <input type="text" class="form-control" id="friend-entry">
                                 </div>
+                                <a href="#search" id="search-button" class="btn btn-outline btn-xl page-scroll">Search</a>
                             </div>
                         </div>
                     </div>
@@ -521,72 +520,35 @@
 
     <script type="text/javascript" src="js/people.js"></script>
 
+    <script type="text/javascript" src="js/dateAndSentimentData.js"></script>
+
     <script src="js/wordcloud.js"></script>
 
     <script type="text/javascript" src="js/histogram.js"></script>
 
     <script>
         $('#analyze-button').on('click', function(e) {
-            
+            $('#prediction-response').text("Predicted Recipient: Loading...");
+            url = "https://ussouthcentral.services.azureml.net/workspaces/5ff32ff30ba647a4acb83b194d66957f/services/375c1847319f4089bc9a72e83cf8d321/execute?api-version=2.0&details=true"
+            let req = new XMLHttpRequest()
+            req.open("POST", "http://localhost:3000/analyze", true)
+            req.setRequestHeader("Content-Type", "application/json")
+            req.send(JSON.stringify({"message": $('#submit-message').val()}))
+            //req.setRequestHeader("")
+            req.onreadystatechange  = function() {
+                if(req.status === 200) {
+                    //todo: set the place
+                    $('#prediction-response').text("Predicted Recipient: " + req.responseText);
+                    $('#submit-message').focus();
+                    $('#submit-message').select();
+                    // console.log(req.responseText)   
+                }
+            }
             // $('#prediction-response').text("Predicted Recipient: ");
             // $('#submit-message').focus();
             // $('#submit-message').select();
-
-            $.ajax({
-                method: "POST",
-                url: "https://ussouthcentral.services.azureml.net/workspaces/5ff32ff30ba647a4acb83b194d66957f/services/375c1847319f4089bc9a72e83cf8d321/execute?api-version=2.0&details=true",
-                data: { 
-                    "GlobalParameters": {},
-                    "Inputs": {
-                        "input1": {
-                            "ColumnNames": [
-                                "label_column",
-                                "text_column"
-                            ]
-                        },
-                        "Values": [
-                            [
-                                "value",
-                                $('#submit-message').val()
-                            ]
-                        ]
-                    }
-                },
-                beforeSend: function(xhr) {
-                    xhr.setRequestHeader("Access-Control-Allow-Origin", "True")
-                    xhr.setRequestHeader('Content-Type', 'application/json');
-                    // xhr.setRequestHeader('Content-Length', JSON.stringify({ 
-                    //     "GlobalParameters": {},
-                    //     "Inputs": {
-                    //         "input1": {
-                    //             "ColumnNames": [
-                    //                 "label_column",
-                    //                 "text_column"
-                    //             ]
-                    //         },
-                    //         "Values": [
-                    //             [
-                    //                 "value",
-                    //                 $('#submit-message').val()
-                    //             ]
-                    //         ]
-                    //     }
-                    // }).length);
-                    // xhr.setRequestHeader('andrewtgeorge', 'TNteGfu+GShDpoT4+h2/adTW+S7nomVzL6zqyCGb4YxtfBVcImhANESUs8+DoPDrrwpq04uvcjCLS5TBMND3dQ==');
-                    xhr.setRequestHeader("Accept", "application/json")
-                },
-                error: function(xmlHttpRequest, textStatus, errorThrown) {
-                    console.log(xmlHttpRequest)
-                    alert("Status: " + xmlHttpRequest.response); alert("Error: " + errorThrown);
-                }
-            })
-                .done(function(msg) {
-                    console.log("Message Sent");
-                    $('#prediction-response').text("Predicted Recipient: " + msg);
-                    $('#submit-message').focus();
-                    $('#submit-message').select();
-                });
         });
+        
     </script>
 
 </body>
