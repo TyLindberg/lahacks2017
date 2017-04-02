@@ -37,8 +37,10 @@
 		var wordsize = [];
 		var k;
 		for(k = 0; k < wordset[index].length; k++) {
-			wordsize.push({text: wordset[index][k],
-				size: fontsizeset[index][k]});
+			if(fontsizeset[index][k] > 20) {
+				wordsize.push({text: wordset[index][k],
+					size: fontsizeset[index][k]});
+			}
 		}
 		wordsizeset.push(wordsize);
 	}
